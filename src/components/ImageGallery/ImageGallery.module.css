@@ -1,0 +1,25 @@
+.ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 30px;
+  padding-bottom: 10px;
+}
+
+.title {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgb(49, 37, 128);
+}
+
+.text {
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
