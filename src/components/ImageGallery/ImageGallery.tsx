@@ -1,8 +1,10 @@
+import React from "react";
 import ImageCard from "../ImageCard/ImageCard";
 import css from "./ImageGallery.module.css";
+import { ImageGalleryProps } from "../App/App.types";
 
-export const ImageGallery = ({
-  cards = [],
+const ImageGallery: React.FC<ImageGalleryProps> = ({
+  cards,
   total,
   isLoading,
   openImage,
@@ -10,7 +12,6 @@ export const ImageGallery = ({
 }) => {
   return (
     <div>
-      {/* {!isLoading && <h2 className={css.title}>Total results: {total}</h2>} */}
       <h2 className={css.title}>Total results: {total}</h2>
       {!isLoading && total === 0 && (
         <p className={css.text}>

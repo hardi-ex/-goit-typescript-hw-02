@@ -1,16 +1,21 @@
-import css from "./SearchBar.module.css";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
+import css from "./SearchBar.module.css";
+import { SearchBarProps } from "../App/App.types";
 
-export const SearchBar = ({ query, setQuery, setCards }) => {
-  const { register, handleSubmit } = useForm({ initialValues: { query } });
-  const onSubmit = (data) => {
-    if (!data.query.trim())
+const SearchBar: React.FC<SearchBarProps> = ({ query, setQuery, setCards }) => {
+  const { register, handleSubmit } = useForm({ defaultValues: { query } });
+
+  const onSubmit = (data: { query: string }) => {
+    if (!data.query.trim()) {
       return toast.error("Please enter a search term to find photos");
+    }
     setCards([]);
     setQuery(data.query);
   };
+
   return (
     <header className={css.header}>
       <Toaster position="top-right" reverseOrder={false} />

@@ -1,7 +1,8 @@
+import React from "react";
 import { InfinitySpin } from "react-loader-spinner";
 import css from "./Loader.module.css";
 
-export const Loader = () => {
+const Loader: React.FC = () => {
   return (
     <div className={css.div}>
       <InfinitySpin

@@ -1,6 +1,8 @@
+import React, { useEffect } from "react";
 import Modal from "react-modal";
 import css from "./ImageModal.module.css";
-import { useEffect } from "react";
+import { ImageModalProps } from "../App/App.types";
+
 Modal.setAppElement("#root");
 
 const customStyles = {
@@ -22,19 +24,20 @@ const customStyles = {
     justifyContent: "center",
     alignItems: "center",
   },
-
   overlay: {
     backgroundColor: "rgba(40, 40, 40, 0.75)",
   },
 };
 
-export const ImageModal = ({ onClose, modalImage }) => {
+const ImageModal: React.FC<ImageModalProps> = ({ onClose, modalImage }) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "auto";
     };
   }, []);
+
+  if (!modalImage) return null;
 
   return (
     <Modal isOpen={true} onRequestClose={onClose} style={customStyles}>

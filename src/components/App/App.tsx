@@ -1,14 +1,15 @@
+import React, { useState, useEffect, useRef } from "react";
+import SearchBar from "../SearchBar/SearchBar";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import ImageGallery from "../ImageGallery/ImageGallery";
-import ImageModal from "../ImageModal/ImageModal";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import Loader from "../Loader/Loader";
-import SearchBar from "../SearchBar/SearchBar";
+import ImageModal from "../ImageModal/ImageModal";
 import { getPostByQuery } from "../Api/api";
-import { useState, useEffect, useRef } from "react";
+import { Toggle, Cards, APIResponse, ModalImage } from "./App.types";
 
 const App = () => {
-  const [cards, setCards] = useState<Cards>([]);
+  const [cards, setCards] = useState<Cards[]>([]);
   const [isLoading, setIsLoading] = useState<Toggle>(false);
   const [error, setError] = useState<Toggle>(false);
   const [page, setPage] = useState<number>(1);
@@ -30,7 +31,7 @@ const App = () => {
         setCards((prevCards) => [...prevCards, ...results]);
         setTotal(total);
       } catch (error) {
-        setError(error);
+        setError(true);
       } finally {
         setIsLoading(false);
       }
@@ -48,7 +49,7 @@ const App = () => {
   }, [cards]);
 
   const toggleModal = () => setIsOpen((prev) => !prev);
-  const openImage = (image) => {
+  const openImage = (image: ModalImage) => {
     toggleModal();
     setModalImage(image);
   };
@@ -56,7 +57,7 @@ const App = () => {
   return (
     <>
       <SearchBar query={query} setQuery={setQuery} setCards={setCards} />
-      {!isLoading && error && <ErrorMessage message={error.message} />}
+      {!isLoading && error && <ErrorMessage message="Error message" />}
       {query !== "" && !error && (
         <ImageGallery
           openImage={openImage}

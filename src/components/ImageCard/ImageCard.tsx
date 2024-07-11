@@ -1,6 +1,8 @@
+import React from "react";
 import css from "./ImageCard.module.css";
+import { ImageCardProps } from "../App/App.types";
 
-export const ImageCard = ({ item, openImage }) => {
+const ImageCard: React.FC<ImageCardProps> = ({ item, openImage }) => {
   const {
     likes,
     description,
