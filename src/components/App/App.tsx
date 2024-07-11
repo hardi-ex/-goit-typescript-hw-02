@@ -1,29 +1,32 @@
-import ErrorMessage from "./ErrorMessage/ErrorMessage";
-import ImageGallery from "./ImageGallery/ImageGallery";
-import ImageModal from "./ImageModal/ImageModal";
-import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
-import Loader from "./Loader/Loader";
-import SearchBar from "./SearchBar/SearchBar";
-import { getPostByQuery } from "./Api/api";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import ImageModal from "../ImageModal/ImageModal";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import Loader from "../Loader/Loader";
+import SearchBar from "../SearchBar/SearchBar";
+import { getPostByQuery } from "../Api/api";
 import { useState, useEffect, useRef } from "react";
 
 const App = () => {
-  const [cards, setCards] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
-  const [total, setTotal] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
-  const [modalImage, setModalImage] = useState(null);
-  const lastCardRef = useRef(null);
+  const [cards, setCards] = useState<Cards>([]);
+  const [isLoading, setIsLoading] = useState<Toggle>(false);
+  const [error, setError] = useState<Toggle>(false);
+  const [page, setPage] = useState<number>(1);
+  const [query, setQuery] = useState<string>("");
+  const [total, setTotal] = useState<number>(0);
+  const [isOpen, setIsOpen] = useState<Toggle>(false);
+  const [modalImage, setModalImage] = useState<ModalImage>(null);
+  const lastCardRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
     const getData = async () => {
       try {
         setError(false);
         setIsLoading(true);
-        const { results, total } = await getPostByQuery({ page, query });
+        const { results, total }: APIResponse = await getPostByQuery({
+          page,
+          query,
+        });
         setCards((prevCards) => [...prevCards, ...results]);
         setTotal(total);
       } catch (error) {
